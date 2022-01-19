@@ -43,7 +43,19 @@ $img-width:45%;
 
 
 //importando css partials
-@import 'header', 'footer', 'about', 'aticle';
+@import 'header', 'footer', 'about', 'aticle', 'collection', 'contact';
+
+$directions:top, bottom, left, right;
+$layout-margin-size:10px;
+
+
+/*Usando o for each para atribuir valores ao placeholders*/
+@each $direction in $directions {
+    %no-margin-#{$direction} {margin-#{$direction}:0;}
+    %default-margin-#{$direction} {margin-#{$direction}:$layout-margin-size;}
+    %double-margin-#{$direction} {margin-#{$direction}: $layout-margin-size * 2;}
+    %half-margin-#{$direction} {margin-#{$direction}: math.div($layout-margin-size, 2);}
+}
 
 //utilizando o parents selector
 .main{
@@ -82,12 +94,13 @@ $img-width:45%;
        display: flex;
        justify-content: center; 
        align-items: center;
+       @extend %default-margin-top, %default-margin-bottom;
        margin-top: 10px;
        margin-bottom: 20px;
 
     }
     &__date{
-        margin: 0 10px;
+        @extend %no-margin-top, %no-margin-bottom, %default-margin-left, %default-margin-right;
         font-size: 10px;
         font-style: italic;
     }
@@ -96,7 +109,7 @@ $img-width:45%;
         padding: 5px 7px;
         color: $purple;
         border: 1px solid $purple;
-        margin: 0 10px;
+        @extend %no-margin-top, %no-margin-bottom, %default-margin-left, %default-margin-right;
     }
 
     &__detalhes{
